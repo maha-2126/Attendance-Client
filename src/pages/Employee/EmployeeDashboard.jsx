@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaUserCircle, FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 import EmployeeNavbar from './EmployeeNavbar';
 import EmpLeaveTable from './EmpLeaveTable';
@@ -46,7 +47,7 @@ const EmployeeDashboard = () => {
     try {
       const headers = { Authorization: `Bearer ${token}` };
       const res = await axios.get(
-        `http://localhost:5000/api/attendance/monthly-summary/${employeeId}/${year}/${month}`,
+        `${API_BASE_URL}/attendance/monthly-summary/${employeeId}/${year}/${month}`,
         { headers }
       );
       setMonthlySummary(res.data);
@@ -74,7 +75,7 @@ const EmployeeDashboard = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       // 1. Fetch profile data
-      const profileRes = await axios.get('http://localhost:5000/api/profile', { headers });
+      const profileRes = await axios.get(`${API_BASE_URL}/profile`, { headers });
       setProfileData(profileRes.data.profile);
 
 
@@ -97,7 +98,7 @@ const EmployeeDashboard = () => {
 
       // 5. Fetch today's attendance (for check-in time)
       try {
-        const attendanceRes = await axios.get('http://localhost:5000/api/attendance/my-today', { headers });
+        const attendanceRes = await axios.get(`${API_BASE_URL}/attendance/my-today`, { headers });
         setCheckInTime(
   attendanceRes.data.todayStatus?.checkIn
     ? attendanceRes.data.todayStatus.checkIn
@@ -115,7 +116,7 @@ const EmployeeDashboard = () => {
       }
 
       // 6. Fetch leave requests and calculate counts by status
-      const leaveRes = await axios.get('http://localhost:5000/api/leave/my-requests', { headers });
+      const leaveRes = await axios.get(`${API_BASE_URL}/leave/my-requests`, { headers });
       const leaves = leaveRes.data.leaveRequests || leaveRes.data || [];
       const pendingLeaves = leaves.filter((l) => l.status === 'Pending').length;
       const approvedLeaves = leaves.filter((l) => l.status === 'Approved').length;
@@ -123,7 +124,7 @@ const EmployeeDashboard = () => {
       setLeaveStatusCounts({ pending: pendingLeaves, approved: approvedLeaves, rejected: rejectedLeaves });
 
       // 7. Fetch permission requests and calculate counts by status
-      const permissionRes = await axios.get('http://localhost:5000/api/permission/my-requests', { headers });
+      const permissionRes = await axios.get(`${API_BASE_URL}/permission/my-requests`, { headers });
       const permissions = permissionRes.data || [];
       const pendingPerm = permissions.filter((p) => p.status === 'Pending').length;
       const approvedPerm = permissions.filter((p) => p.status === 'Approved').length;
@@ -131,7 +132,7 @@ const EmployeeDashboard = () => {
       setTodayPermissions({ pending: pendingPerm, approved: approvedPerm, rejected: rejectedPerm });
 
     } catch (err) {
-      console.error('❌ Dashboard loading failed:', err.response?.data || err.message);
+      console.error('Dashboard loading failed:', err.response?.data || err.message);
       toast.error('Error loading dashboard');
     }
   };
