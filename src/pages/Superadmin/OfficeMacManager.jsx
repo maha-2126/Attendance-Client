@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const OfficeMacManager = () => {
   const [macAddress, setMacAddress] = useState('');
   const [editMode, setEditMode] = useState(false);
@@ -12,7 +14,7 @@ const OfficeMacManager = () => {
   useEffect(() => {
     const fetchMac = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/get/office-mac', { headers });
+        const res = await axios.get(`${API_BASE_URL}/get/office-mac`, { headers });
         setMacAddress(res.data.macAddress || '');
       } catch (err) {
         toast.error('Failed to load MAC address');
@@ -39,14 +41,14 @@ const OfficeMacManager = () => {
     try {
       if (macAddress) {
         await axios.put(
-          'http://localhost:5000/api/update/office-mac',
+          `${API_BASE_URL}/update/office-mac`,
           { macAddress: inputMac.trim() },
           { headers }
         );
         toast.success('MAC address updated');
       } else {
         await axios.post(
-          'http://localhost:5000/api/create/office-mac',
+          `${API_BASE_URL}/create/office-mac`,
           { macAddress: inputMac.trim() },
           { headers }
         );
