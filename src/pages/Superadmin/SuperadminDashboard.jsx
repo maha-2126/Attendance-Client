@@ -123,7 +123,6 @@ const handleEditInputChange = (e) => {
     toast.success('Logged out successfully');
     navigate('/login', { state: { fromLogout: true } });
   };
-  
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
