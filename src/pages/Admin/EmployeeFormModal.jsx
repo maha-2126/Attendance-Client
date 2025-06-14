@@ -3,6 +3,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const EmployeeFormModal = ({ closeModal, fetchEmployees, editEmployee }) => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -68,10 +70,10 @@ const EmployeeFormModal = ({ closeModal, fetchEmployees, editEmployee }) => {
       if (editEmployee) {
         const updateData = { ...formData };
         if (!updateData.password) delete updateData.password;
-        await axios.put(`http://localhost:5000/api/employee/update/${editEmployee._id}`, updateData, config);
+        await axios.put(`${API_BASE_URL}/employee/update/${editEmployee._id}`, updateData, config);
         toast.success('Employee updated successfully');
       } else {
-        await axios.post('http://localhost:5000/api/employee/create', formData, config);
+        await axios.post(`${API_BASE_URL}/employee/create`, formData, config);
         toast.success('Employee created successfully');
       }
 
