@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const LeaveTable = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const token = localStorage.getItem('token');
 
   const fetchLeaves = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/leave/list', {
+      const res = await axios.get(`${API_BASE_URL}/leave/list`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLeaveRequests(res.data);
@@ -23,7 +25,7 @@ const LeaveTable = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/leave/approve/${id}`, {}, {
+      await axios.put(`${API_BASE_URL}/leave/approve/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Leave approved');
@@ -35,7 +37,7 @@ const LeaveTable = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/leave/reject/${id}`, {}, {
+      await axios.put(`${API_BASE_URL}/leave/reject/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Leave rejected');
