@@ -6,6 +6,7 @@ import { FaUserShield, FaUserTie, FaUser, FaEye, FaEyeSlash } from 'react-icons/
 import { ImSpinner2 } from 'react-icons/im';
 import 'react-toastify/dist/ReactToastify.css';
 import bg from '../assets/bg.jpg';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const LoginPage = ({ setRole }) => {
   const [officeId, setOfficeId] = useState('');
@@ -36,7 +37,7 @@ const LoginPage = ({ setRole }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, {
         officeId,
         password,
         role,
