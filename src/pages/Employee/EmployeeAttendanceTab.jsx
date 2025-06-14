@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const EmpAttendanceTab = () => {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -10,7 +9,7 @@ const EmpAttendanceTab = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/attendance/my-today`, {
+      const res = await axios.get('http://localhost:5000/api/attendance/my-today', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -50,7 +49,7 @@ const EmpAttendanceTab = () => {
 
   const handleCheckOut = async () => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/attendance/checkout`, {}, {
+      const res = await axios.post('http://localhost:5000/api/attendance/checkout', {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success(`${res.data.message}`);
