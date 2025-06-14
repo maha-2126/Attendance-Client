@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const EmpDashboardTab = ({
   profileData,
@@ -26,7 +26,7 @@ const EmpDashboardTab = ({
     try {
       const token = localStorage.getItem('token'); // Use same token name everywhere
       const response = await fetch(
-        `http://localhost:5000/api/attendance/monthly-summary/${employeeId}/${year}/${month}`,
+        `${API_BASE_URL}/attendance/monthly-summary/${employeeId}/${year}/${month}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
