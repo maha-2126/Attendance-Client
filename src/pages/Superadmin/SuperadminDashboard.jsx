@@ -6,7 +6,7 @@ import { Eye, Edit, Trash2, X, User, LogOut } from 'lucide-react';
 import { FaUserCircle, FaTimes, FaBars, FaGoogle } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import OfficeMacManager from './OfficeMacManager';
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const SuperadminDashboard = () => {
   const [admins, setAdmins] = useState([]);
@@ -41,7 +41,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const fetchAdmins = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/list-admins', { headers });
+      const res = await axios.get(`${API_BASE_URL}/list-admins`, { headers });
       setAdmins(res.data);
     } catch (error) {
       toast.error('Error fetching admins');
@@ -50,7 +50,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const fetchDeletedAdmins = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/deleted-admin', { headers });
+      const res = await axios.get(`${API_BASE_URL}/deleted-admin`, { headers });
       setDeletedAdmins(res.data);
     } catch (error) {
       toast.error('Error fetching deleted admins');
@@ -59,7 +59,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const handleDelete = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/delete-admin/${id}`, {}, { headers });
+      await axios.patch(`${API_BASE_URL}/delete-admin/${id}`, {}, { headers });
       toast.success('Admin deleted');
       fetchAdmins();
     } catch (error) {
@@ -69,7 +69,7 @@ const [showViewModal, setShowViewModal] = useState(false);
 
   const handleRestore = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/restore-admin/${id}`, {}, { headers });
+      await axios.patch(`${API_BASE_URL}/restore-admin/${id}`, {}, { headers });
       toast.success('Admin restored');
       fetchDeletedAdmins();
     } catch (error) {
@@ -89,7 +89,7 @@ const handleViewClick = (admin) => {
 
 const handleUpdateAdmin = async () => {
   try {
-    await axios.put(`http://localhost:5000/api/update-admin/${selectedAdmin._id}`, selectedAdmin, { headers });
+    await axios.put(`${API_BASE_URL}/update-admin/${selectedAdmin._id}`, selectedAdmin, { headers });
     toast.success('Admin updated');
     setShowEditModal(false);
     fetchAdmins();
@@ -106,7 +106,7 @@ const handleEditInputChange = (e) => {
 
   const handleProfileClick = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/profile', {
+      const res = await axios.get(`${API_BASE_URL}/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -141,7 +141,7 @@ const handleEditInputChange = (e) => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/create-admin', formData, { headers });
+    await axios.post(`${API_BASE_URL}/create-admin`, formData, { headers });
     toast.success('Admin created successfully');
     setShowCreateModal(false);
     setFormData({
