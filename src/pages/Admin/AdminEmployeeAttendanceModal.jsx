@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const AdminEmployeeAttendanceModal = ({ employee, onClose }) => {
     const [monthlySummary, setMonthlySummary] = useState(null);
     const [monthlySummaryLoading, setMonthlySummaryLoading] = useState(true);
@@ -41,7 +43,7 @@ const AdminEmployeeAttendanceModal = ({ employee, onClose }) => {
         try {
             setMonthlySummaryLoading(true);
             const res = await axios.get(
-                `http://localhost:5000/api/attendance/monthly-summary/${employeeId}/${year}/${month}`,
+                `${API_BASE_URL}/attendance/monthly-summary/${employeeId}/${year}/${month}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
