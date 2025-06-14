@@ -4,13 +4,14 @@ import axios from 'axios';
 import { FaUserCircle, FaTimes } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 import EmployeeNavbar from './EmployeeNavbar';
 import EmpLeaveTable from './EmpLeaveTable';
 import EmpPermissionTable from './EmpPermissionTable';
 import EmpAttendanceTab from './EmployeeAttendanceTab';
 import EmpDashboardTab from './empdash';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const EmployeeDashboard = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
