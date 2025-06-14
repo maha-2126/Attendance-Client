@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const PermissionTable = () => {
   const [permissionRequests, setPermissionRequests] = useState([]);
   const token = localStorage.getItem('token');
 
   const fetchPermissions = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/permission/list', {
+      const res = await axios.get(`${API_BASE_URL}/permission/list`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -25,7 +27,7 @@ const PermissionTable = () => {
 
   const handleApprove = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/permission/approve/${id}`, {}, {
+      await axios.put(`${API_BASE_URL}/permission/approve/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Permission approved');
@@ -38,7 +40,7 @@ const PermissionTable = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/permission/reject/${id}`, {}, {
+      await axios.put(`${API_BASE_URL}/permission/reject/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Permission rejected');
