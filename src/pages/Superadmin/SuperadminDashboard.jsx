@@ -104,23 +104,19 @@ const handleEditInputChange = (e) => {
 
 
 
-  const handleProfileClick = async () => {
-    try {
-      const res = await axios.get(`${API_BASE_URL}/profile`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+const handleProfileClick = async () => {
+  try {
+    const res = await axios.get(`${API_BASE_URL}/profile`, { headers });
+    if (!localStorage.getItem('token')) return; // don't toast after logout
+    setProfileData(res.data.profile);
+    toast.success('Profile loaded successfully');
+    setShowProfileModal(true);
+  } catch (err) {
+    if (!localStorage.getItem('token')) return;
+    toast.error('Failed to load profile');
+  }
+};
 
-      setProfileData(res.data.profile);
-      console.log(res.data);
-      toast.success('Profile loaded successfully');
-      setShowProfileModal(true);
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-      toast.error('Failed to load profile');
-    }
-  };
 
     // const handleLogout = () => {
     //     localStorage.removeItem('token');
