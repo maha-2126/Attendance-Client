@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { FaUserCircle, FaTimes } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 import AdminNavbar from './AdminNavbar';
 import EmployeeFormModal from './EmployeeFormModal';
 import EmployeeViewModal from './EmployeeViewModal';
@@ -39,7 +41,7 @@ const AdminDashboard = () => {
     if (activeTab === 'dashboard') {
       const fetchDashboardStats = async () => {
         try {
-          const res = await axios.get('http://localhost:5000/api/dashboard/stats', {
+          const res = await axios.get(`${API_BASE_URL}/dashboard/stats`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setDashboardStats(res.data);
@@ -55,7 +57,7 @@ const AdminDashboard = () => {
 
   const handleProfileClick = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/profile', {
+      const res = await axios.get(`${API_BASE_URL}/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProfileData(res.data.profile);
