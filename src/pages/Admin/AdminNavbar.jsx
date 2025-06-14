@@ -5,6 +5,8 @@ import { BiSolidCircle } from 'react-icons/bi';
 import { User, LogOut } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const AdminNavbar = ({ onProfileClick, onLogoutClick }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
