@@ -142,15 +142,25 @@ const EmployeeDashboard = () => {
     fetchDashboardData();
   }, []);
 
-  const handleProfileClick = () => {
-    setShowProfileModal(true);
+  const handleProfileClick = async () => {
+    try {
+      const res = await axios.get(`${API_BASE_URL}/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProfileData(res.data.profile);
+      toast.success('Profile loaded successfully');
+      setShowProfileModal(true);
+    } catch (err) {
+      console.error('Error fetching profile:', err);
+      toast.error('Failed to load profile');
+    }
   };
 
   const handleLogout = () => {
-      localStorage.removeItem('token');
-      toast.success('Logged out successfully');
-      navigate('/login', { state: { fromLogout: true } });
-    };
+    localStorage.removeItem('token');
+    toast.success('Logged out successfully');
+    navigate('/login', { state: { fromLogout: true } });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-600 text-white">
