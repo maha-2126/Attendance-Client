@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const PermissionTable = () => {
   const [permissionRequests, setPermissionRequests] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -19,7 +21,7 @@ const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
  const fetchPermissions = async () => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/permission/my-requests?month=${selectedMonth}&year=${selectedYear}`,
+      `${API_BASE_URL}/permission/my-requests?month=${selectedMonth}&year=${selectedYear}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -40,7 +42,7 @@ const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/permission/request', formData, {
+      const res = await axios.post(`${API_BASE_URL}/permission/request`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
