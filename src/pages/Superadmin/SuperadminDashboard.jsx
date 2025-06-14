@@ -122,11 +122,11 @@ const handleEditInputChange = (e) => {
     }
   };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        toast.success('Logged out successfully');
-        navigate('/login', { state: { fromLogout: true } });
-      };
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token');
+    //     toast.success('Logged out successfully');
+    //     navigate('/login', { state: { fromLogout: true } });
+    //   };
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
