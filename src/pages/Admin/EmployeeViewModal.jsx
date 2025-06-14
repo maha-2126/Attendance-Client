@@ -6,6 +6,7 @@ import EmployeeDetailsModal from './EmployeeDetailsModal';
 import EmployeeFormModal from './EmployeeFormModal';
 import AdminEmployeeAttendanceModal from './AdminEmployeeAttendanceModal';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const EmployeeViewModal = () => {
   const [employees, setEmployees] = useState([]);
@@ -22,7 +23,7 @@ const EmployeeViewModal = () => {
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/employee/list', {
+      const response = await axios.get(`${API_BASE_URL}/employee/list`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(response.data);
@@ -38,7 +39,7 @@ const EmployeeViewModal = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this employee?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/employee/delete/${id}`, {
+      await axios.delete(`${API_BASE_URL}/employee/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Employee deleted');
@@ -50,7 +51,7 @@ const EmployeeViewModal = () => {
 
   const handleView = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/employee/list/${id}`, {
+      const res = await axios.get(`${API_BASE_URL}/employee/list/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelectedEmployee(res.data);
@@ -62,7 +63,7 @@ const EmployeeViewModal = () => {
 
   const handleEdit = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/employee/list/${id}`, {
+      const res = await axios.get(`${API_BASE_URL}/employee/list/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEditEmployee(res.data);
