@@ -5,13 +5,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import { FaUserCircle, FaTimes } from 'react-icons/fa';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 import AdminNavbar from './AdminNavbar';
 import EmployeeFormModal from './EmployeeFormModal';
 import EmployeeViewModal from './EmployeeViewModal';
 import LeaveTable from './LeaveTable';
 import PermissionTable from './PermissionTable';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const AdminDashboard = () => {
   const [showFormModal, setShowFormModal] = useState(false);
