@@ -185,6 +185,7 @@ const EmpAttendanceTab = () => {
       }
 
       setTodayStatus(today || null);
+      console.log(todayRow);
     } catch (error) {
       toast.error('Failed to load attendance');
     }
