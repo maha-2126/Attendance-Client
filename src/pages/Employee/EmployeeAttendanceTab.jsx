@@ -180,12 +180,13 @@ const EmpAttendanceTab = () => {
           status: today.status || 'Pending',
         };
         setAttendanceData([todayRow]);
+        console.log(todayRow);
       } else {
         setAttendanceData([]);
       }
 
       setTodayStatus(today || null);
-      console.log(todayRow);
+      
     } catch (error) {
       toast.error('Failed to load attendance');
     }
