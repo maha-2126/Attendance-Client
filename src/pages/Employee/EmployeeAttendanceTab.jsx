@@ -161,8 +161,8 @@ const EmpAttendanceTab = () => {
   const [todayStatus, setTodayStatus] = useState(null);
   const token = localStorage.getItem('token');
 
-  const API_BASE_URL = 'https://attendance-server-7.onrender.com';
-  const AGENT_URL = 'http://localhost:3001'; // or use internal IP of device if agent is remote
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const AGENT_URL = 'http://localhost:3001'; 
 
   const fetchAttendance = async () => {
     try {
