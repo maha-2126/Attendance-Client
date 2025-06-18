@@ -254,13 +254,20 @@ const handleEditInputChange = (e) => {
       </div>
 
       {/* Mobile Dropdown Sidebar Menu */}
-      {showMenu && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex justify-end md:hidden">
-          <div className="bg-gradient-to-b from-gray-900 to-gray-700 w-[80%] h-96 p-4 rounded-l-xl shadow-lg flex flex-col">
+       <AnimatePresence>
+        {showMenu && (
+          <motion.div
+            initial={{ y: "-100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="fixed top-0 left-0 w-full h-[400px] bg-gradient-to-b from-gray-900 to-gray-700 z-[9999] p-4 shadow-2xl flex flex-col md:hidden"
+
+          >
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
               <div>
-                  <FaGoogle size={28} className="text-red-500 bg-gradient-to-r from-green-400 via-yellow-500 to-blue-500 rounded-full" />
+                <FaGoogle size={28} className="text-red-500 bg-gradient-to-r from-green-400 via-yellow-500 to-blue-500 rounded-full" />
                 <h2 className="text-lg font-semibold text-white mt-2">Attendance Management</h2>
                 <p className="text-xs text-gray-300">Admin Control Panel</p>
               </div>
@@ -269,8 +276,8 @@ const handleEditInputChange = (e) => {
               </button>
             </div>
 
-           {/* Mobile Buttons */}
-            <div className="flex flex-col gap-2">
+            {/* Buttons */}
+            <div className="flex flex-col gap-2 mt-4">
               <button
                 onClick={() => {
                   setShowDeleted(false);
@@ -295,17 +302,18 @@ const handleEditInputChange = (e) => {
               </button>
             </div>
 
-
             {/* Footer */}
-            <div className="mt-12 space-y-3">
-              <div className="flex gap-2">
+            <div className="mt-auto space-y-4 pt-8 border-t border-white/10">
               <button
-                onClick={() => setShowProfileModal(true)}
-                className="flex-1 bg-white/20 text-white text-sm py-2 rounded-lg border border-white/10"
+                onClick={() => {
+                  handleProfileClick();
+                  setShowMenu(false);
+                }}
+                className="w-full bg-white/20 text-white text-sm py-2 rounded-lg border border-white/10"
               >
                 Profile
               </button>
-            </div>
+
               <div className="flex items-center gap-2">
                 <FaUserCircle className="text-lime-400" size={32} />
                 <div className="flex-1 text-white">
@@ -323,9 +331,9 @@ const handleEditInputChange = (e) => {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
 
  <div className="flex items-center gap-4 mb-4 w-full flex-wrap">
