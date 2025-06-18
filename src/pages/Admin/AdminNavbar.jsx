@@ -4,7 +4,7 @@ import { FaUserCircle, FaGoogle, FaBars, FaTimes } from 'react-icons/fa';
 import { BiSolidCircle } from 'react-icons/bi';
 import { User, LogOut } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminNavbar = ({ onProfileClick, onLogoutClick }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -119,70 +119,77 @@ const AdminNavbar = ({ onProfileClick, onLogoutClick }) => {
       </div>
 
       {/* Mobile Side Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-auto w-80 bg-gray-900 text-white z-[1000] shadow-2xl transition-transform duration-300 ease-in-out transform ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
-        } rounded-l-xl p-4 flex flex-col justify-between`}
-      >
-        <div>
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <FaGoogle size={28} className="text-red-500 bg-gradient-to-r from-green-400 via-yellow-500 to-blue-500 rounded-full" />
-              <h2 className="text-lg font-semibold text-white mt-2">Attendance Management</h2>
-              <p className="text-sm text-gray-400 mb-4">Admin Control Panel</p>
-            </div>
-            <button onClick={() => setMenuOpen(false)}>
-              <FaTimes size={24} className="text-white" />
-            </button>
+      <AnimatePresence>
+  {menuOpen && (
+    <motion.div
+      initial={{ y: -300, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -300, opacity: 0 }}
+      transition={{ type: 'spring', stiffness: 70, damping: 15 }}
+      className="fixed top-0 left-0 w-full md:w-80 bg-gray-900 text-white z-[1000] shadow-2xl rounded-b-xl p-4 flex flex-col justify-between"
+    >
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <FaGoogle size={28} className="text-red-500 bg-gradient-to-r from-green-400 via-yellow-500 to-blue-500 rounded-full" />
+            <h2 className="text-lg font-semibold text-white mt-2">Attendance Management</h2>
+            <p className="text-sm text-gray-400 mb-4">Admin Control Panel</p>
           </div>
+          <button onClick={() => setMenuOpen(false)}>
+            <FaTimes size={24} className="text-white" />
+          </button>
+        </div>
 
-          <div className="space-y-3">
-            {tabs.map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => handleTabClick(tab.path)}
-                className={`w-full px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold ${
-                  isActive(tab.path) ? 'bg-lime-400 text-black' : 'bg-gray-700 text-gray-300'
-                }`}
-              >
-                {isActive(tab.path) && <BiSolidCircle size={8} />}
-                {tab.name}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-6">
+        <div className="space-y-3">
+          {tabs.map((tab) => (
             <button
-              className="w-full bg-white/20 text-white text-sm py-2 rounded-lg border border-white/10"
-              onClick={() => {
-                onProfileClick();
-                setMenuOpen(false);
-              }}
+              key={tab.key}
+              onClick={() => handleTabClick(tab.path)}
+              className={`w-full px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold ${
+                isActive(tab.path) ? 'bg-lime-400 text-black' : 'bg-gray-700 text-gray-300'
+              }`}
             >
-              Profile
+              {isActive(tab.path) && <BiSolidCircle size={8} />}
+              {tab.name}
             </button>
-          </div>
+          ))}
+        </div>
 
-          <div className="flex justify-between rounded px-4 py-3 mt-6">
-            <div className="flex items-center gap-2">
-              <FaUserCircle size={20} className="text-green-500" />
-              <div className="text-left text-xs">
-                <p className="font-semibold">CorpWings</p>
-                <p className="text-gray-400 text-[10px]">ADMIN</p>
-              </div>
+        <div className="mt-6">
+          <button
+            className="w-full bg-white/20 text-white text-sm py-2 rounded-lg border border-white/10"
+            onClick={() => {
+              onProfileClick();
+              setMenuOpen(false);
+            }}
+          >
+            Profile
+          </button>
+        </div>
+
+        <div className="flex justify-between rounded px-4 py-3 mt-6">
+          <div className="flex items-center gap-2">
+            <FaUserCircle size={20} className="text-green-500" />
+            <div className="text-left text-xs">
+              <p className="font-semibold">CorpWings</p>
+              <p className="text-gray-400 text-[10px]">ADMIN</p>
             </div>
-            <button
-              className="bg-white text-black text-sm px-3 py-2 rounded-md flex items-center gap-1"
-              onClick={() => {
-                onLogoutClick();
-                setMenuOpen(false);
-              }}
-            >
-              <FaTimes size={12} /> Logout
-            </button>
           </div>
+          <button
+            className="bg-white text-black text-sm px-3 py-2 rounded-md flex items-center gap-1"
+            onClick={() => {
+              onLogoutClick();
+              setMenuOpen(false);
+            }}
+          >
+            <FaTimes size={12} /> Logout
+          </button>
         </div>
       </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </>
   );
 };
