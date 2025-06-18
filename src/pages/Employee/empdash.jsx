@@ -273,8 +273,12 @@ const EmpDashboardTab = ({
                     const dateCopy = new Date(date);
                     dateCopy.setHours(0, 0, 0, 0);
 
-                    const formatted = date.toISOString().split('T')[0];
-                    const status = dateStatusList.find((d) => d.date === formatted)?.status;
+                    const formatted = date.getFullYear() + '-' + 
+                  String(date.getMonth() + 1).padStart(2, '0') + '-' + 
+                  String(date.getDate()).padStart(2, '0');
+
+                  const status = dateStatusList.find((d) => d.date === formatted)?.status;
+
 
                     const isToday = dateCopy.getTime() === today.getTime();
                     const isFuture = dateCopy.getTime() > today.getTime();
