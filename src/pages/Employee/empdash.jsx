@@ -169,7 +169,6 @@ const EmpDashboardTab = ({
       </div>
 
       {/* Calendar Modal */}
-      {/* Calendar Modal */}
       {showCalendarModal && (
         <AnimatePresence>
           <motion.div
