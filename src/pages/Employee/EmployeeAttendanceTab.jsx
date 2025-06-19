@@ -166,7 +166,7 @@ const EmpAttendanceTab = () => {
 
   const fetchAttendance = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/api/attendance/my-today`, {
+      const res = await axios.get(`${API_BASE_URL}/attendance/my-today`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -195,7 +195,7 @@ const EmpAttendanceTab = () => {
   const handleCheckIn = async () => {
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/api/trigger-checkin`,
+        `${API_BASE_URL}/trigger-checkin`,
         { token },
       );
 
@@ -208,7 +208,7 @@ const EmpAttendanceTab = () => {
 
   const handleCheckOut = async () => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/attendance/checkout`, {}, {
+      const res = await axios.post(`${API_BASE_URL}/attendance/checkout`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success(`${res.data.message}`);
