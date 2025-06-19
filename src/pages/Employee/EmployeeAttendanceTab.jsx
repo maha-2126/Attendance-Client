@@ -195,7 +195,7 @@ const EmpAttendanceTab = () => {
   const handleCheckIn = async () => {
     try {
       const res = await axios.post(
-        `${API_BASE_URL}/trigger-checkin`,
+        `${API_BASE_URL}/api/trigger-checkin`,
         { token },
       );
 
